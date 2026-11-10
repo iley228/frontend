@@ -2,14 +2,15 @@ import { useEffect } from "react"
 import { useUserStore } from "../store/useUserStore"
 import { useNavigate } from "react-router-dom"
 
-export const AuthGuard = ({children}) => {
-    const {user} = useUserStore()
-    const Navigate = useNavigate()
+export const AuthGuard = ({ children }) => {
+    const { user } = useUserStore()
+    const navigate = useNavigate()
 
     useEffect(() => {
-        if (!user?.token) Navigate("/signin")
+        if (!user?.token) navigate("/signin")
     }, [])
-    if (!user?.token) return <></>
-    return children
 
+    if (!user?.token) return <></>
+
+    return children
 }

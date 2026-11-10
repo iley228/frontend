@@ -1,8 +1,7 @@
-import MessageCard from './MessageCard'
-import { useState } from 'react'
+import MessageCard from "./MessageCard"
+import { useState } from "react"
 
-const Feed = ({ messages = [], title = 'Сообщения' }) => {
-
+const Feed = ({ messages = [], title = "Сообщения" }) => {
     return (
         <>
             <div className="messages-section">

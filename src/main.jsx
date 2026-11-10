@@ -12,11 +12,18 @@ import { AuthGuard } from "./components/AuthGuard.jsx"
 
 createRoot(document.getElementById("root")).render(
     <StrictMode>
-        <BrowserRouter basename ="/absproxy/15346/">
+        <BrowserRouter>
             <Routes>
                 <Route path="/" element={<Layout />}>
                     <Route index element={<Board />} />
-                    <Route path="my-messages" element={<AuthGuard><MyMessages /></AuthGuard>} />
+                    <Route
+                        path="my-messages"
+                        element={
+                            <AuthGuard>
+                                <MyMessages />
+                            </AuthGuard>
+                        }
+                    />
                     <Route path="signin" element={<SignIn />} />
                     <Route path="signup" element={<SignUp />} />
                 </Route>

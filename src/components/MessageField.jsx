@@ -1,24 +1,29 @@
-import Button from './Button'
-import TextArea from './TextArea'
+import { useState } from "react"
+import { api } from "../api/api"
+import Button from "./Button"
+import TextArea from "./TextArea"
+import { useMessageStore } from "../store/useMessageStore"
 
 const MessageField = () => {
-    const[ isLoading,setIsLoading] = useState(false)
-    const handleSubmit = async (e)
-        
-     => {
+    const [isLoading, setIsLoading] = useState(false)
+    const { getMessages } = useMessageStore()
+    const handleSubmit = async (e) => {
         e.preventDefault()
-        if (isLoading || e.target.content.value.trim().lenght <= 3) return
+        if (isLoading || e.target.content.value.trim().length <= 3) return
         const data = {
-            content: e.target.content.value
+            content: e.target.content.value,
         }
+
         try {
-        setIsLoading(true)
-        const res = await api.sendMessage(data)
-        e.target.reset()
-       } catch(error){
-       console.error.(error)
-       }finaly {
-       setIsLoading(false )
+            setIsLoading(true)
+            const res = await api.sendMessage(data)
+            getMessages()
+            e.target.reset()
+        } catch (error) {
+            console.error(error)
+        } finally {
+            setIsLoading(false)
+        }
     }
     return (
         <div className="create-message-section">
@@ -26,8 +31,9 @@ const MessageField = () => {
                 <div className="create-message-card">
                     <h2 className="create-message-title">Создать сообщение</h2>
                     <form
-                    on onSubmit={handleSubmit}
-                        className="create-message-form">
+                        onSubmit={handleSubmit}
+                        className="create-message-form"
+                    >
                         <TextArea
                             name="content"
                             placeholder="Поделитесь мнением..."
